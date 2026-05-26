@@ -229,7 +229,7 @@ if __name__ == "__main__":
     crawler = THSStockCrawler()
 
     # ===================== 股票数据任务 =====================
-    # 1. 行业资金流数据（你之前的需求）
+    # 1. 行业资金流数据（行业走势）
     crawler.add_task("http://data.10jqka.com.cn/funds/hyzjl/", "行业资金流")
 
     # 2. 个股资金流数据（实时资金流向）
