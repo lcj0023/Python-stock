@@ -7,9 +7,7 @@ import time
 import os
 
 
-# ===================== 数据结构1：队列（FIFO）- 通用任务调度器 =====================
-# 核心思想：先进先出，按添加顺序依次处理任务
-# 应用场景：多页面爬取、分页爬取、不同数据类型的批量处理
+# 队列（FIFO）- 通用任务调度器 
 class TaskQueue:
     def __init__(self):
         # 使用双端队列deque实现，入队/出队O(1)，比Python列表高效100倍以上
@@ -36,9 +34,7 @@ class TaskQueue:
         self.queue.clear()
 
 
-# ===================== 数据结构2：栈（LIFO）- 通用HTML表格解析器 =====================
-# 核心思想：后进先出，完美匹配HTML嵌套标签的解析逻辑
-# 应用场景：任何HTML表格解析、XML解析、表达式求值、括号匹配
+# 栈（LIFO）- 通用HTML表格解析器 
 class TableParseStack:
     def __init__(self):
         self.stack = []
@@ -109,13 +105,7 @@ class THSStockCrawler:
 
     def parse_table_with_stack(self, html):
         """
-        使用栈解析HTML表格（通用版，支持所有同花顺表格）
-        解析算法：
-        1. 栈中存储(标签类型, 元素对象)元组
-        2. 遇到table：将所有tr逆序入栈（保证弹出顺序为正序）
-        3. 遇到tr：先入栈行结束标记，再将所有td/th逆序入栈
-        4. 遇到td/th：提取文本存入当前行
-        5. 遇到行结束标记：将完整行存入结果集
+        使用栈解析HTML表格
         """
         soup = BeautifulSoup(html, "lxml")
         table = soup.find("table")
@@ -239,7 +229,7 @@ if __name__ == "__main__":
     # 创建爬虫实例
     crawler = THSStockCrawler()
 
-    # ===================== 添加你需要爬取的股票数据任务 =====================
+    # ===================== 股票数据任务 =====================
     # 1. 行业资金流数据（你之前的需求）
     crawler.add_task("http://data.10jqka.com.cn/funds/hyzjl/", "行业资金流")
 
