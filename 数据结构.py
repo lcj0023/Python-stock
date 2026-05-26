@@ -124,7 +124,7 @@ class THSStockCrawler:
             tag_type, elem = stack.pop()
 
             if tag_type == "table":
-                # 找到所有行，逆序入栈（栈后进先出，弹出时恢复正序）
+                # 找到所有行，逆序入栈
                 all_trs = table.find_all("tr")
                 for tr in reversed(all_trs):
                     stack.push(("tr", tr))
@@ -132,8 +132,7 @@ class THSStockCrawler:
             elif tag_type == "tr":
                 # 重置当前行
                 current_row = []
-                # 关键：先入栈行结束标记，再入栈单元格
-                # 这样单元格会先被处理，最后触发行结束
+                # 先入栈行结束标记，再入栈单元格
                 stack.push(("end_row", None))
                 # 找到所有单元格，逆序入栈
                 all_tds = elem.find_all(["td", "th"])
@@ -190,7 +189,7 @@ class THSStockCrawler:
                     for p in range(2, min(total_pages + 1, 6)):  # 限制最多爬5页，避免请求过多
                         self.add_task(f"{url}page/{p}/", data_type, p)
 
-                # 纯栈解析表格数据
+                # 解析表格数据
                 table_data = self.parse_table_with_stack(response.text)
 
                 if table_data and len(table_data) > 1:
